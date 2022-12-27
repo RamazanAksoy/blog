@@ -17,4 +17,15 @@ class FireStoreService extends GetxService {
       Get.snackbar("Eror", "$e");
     }
   }
+
+  getBlogFireStore() {
+    final docRef = db!.collection("blogs");
+    docRef.get().then((value)  {
+      value.docs.forEach((element) { 
+    Blog blog=    Blog.fromJson(element.data());
+       print(  Blog(id: element.id,comment: blog.comment,title: blog.title) );
+      });
+    } );
+    
+  }
 }

@@ -1,12 +1,11 @@
-import 'package:blog/modules/auth/login/login_controller.dart';
-import 'package:blog/modules/blog/blogadd/blogadd_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../animation/fadeanimation.dart';
+import 'bloglist_controller.dart';
 
-class BlogAddScreen extends GetWidget<BlogAddController> {
-  const BlogAddScreen({super.key});
+class BlogListScreen extends GetWidget<BlogListController> {
+  const BlogListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +14,12 @@ class BlogAddScreen extends GetWidget<BlogAddController> {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
+      title: const Text(
+        "Blog List",
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.black87,fontSize: 18),
+      ),
+      centerTitle: true,
       elevation: 0,
       brightness: Brightness.light,
       backgroundColor: Colors.transparent,
@@ -31,54 +36,39 @@ class BlogAddScreen extends GetWidget<BlogAddController> {
     );
   }
 
-  SizedBox buildPage(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height,
-      width: double.infinity,
+  Widget buildPage(BuildContext context) {
+    return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    const FadeAnimation(
-                        1,
-                        Text(
-                          "Blog Add",
-                          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                        )),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    FadeAnimation(
-                        1.2,
-                        Text(
-                          "Please enter blog information",
-                          style: TextStyle(fontSize: 15, color: Colors.grey[700]),
-                        )),
-                  ],
-                ),
-                Form(
-                  key: controller.formkey,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: Column(
-                      children: <Widget>[
-                        FadeAnimation(1.2, makeInput(controller.textEditingControllerTitle, label: "Title")),
-                        FadeAnimation(1.3,
-                            makeInput(controller.textEditingControllerComment, label: "Comment", obscureText: true)),
-                      ],
-                    ),
-                  ),
-                ),
-                FadeAnimation(1.4, buildButtonLogin()),
-              ],
-            ),
+          Column(
+            children: <Widget>[
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: 10,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FadeAnimation((index*0.3 + 0.2), buildListCard()),
+                  );
+                },
+              )
+            ],
           ),
         ],
+      ),
+    );
+  }
+
+  Card buildListCard() {
+    return const Card(
+      elevation: 0.5,
+      child: ListTile(
+        leading: Icon(Icons.textsms_outlined),
+        title: Text("Title"),
+        subtitle: Text("Subtitle"),
+        trailing: Icon(Icons.arrow_right),
       ),
     );
   }
@@ -99,9 +89,7 @@ class BlogAddScreen extends GetWidget<BlogAddController> {
         child: MaterialButton(
           minWidth: double.infinity,
           height: 60,
-          onPressed: () {
-            controller.blogSave();
-          },
+          onPressed: () {},
           color: Colors.greenAccent,
           elevation: 0,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),

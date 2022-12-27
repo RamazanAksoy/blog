@@ -35,7 +35,7 @@ class AuthService extends GetxService {
 
   userNullCheck() {
     if (FirebaseAuth.instance.currentUser != null) {
-      Get.toNamed(Routes.BLOGADD);
+      Get.toNamed(Routes.BLOG);
     } else {
       Get.toNamed(Routes.HOME);
     }
