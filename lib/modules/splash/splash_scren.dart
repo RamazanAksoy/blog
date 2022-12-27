@@ -9,8 +9,9 @@ class SplashScreen extends GetWidget<SplashController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 20.w),
+      body: Center(
+          child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Image.asset("assets/images/logo.png"),
       )),
     );

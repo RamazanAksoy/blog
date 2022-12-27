@@ -7,34 +7,37 @@ class AuthService extends GetxService {
     return this;
   }
 
-  createUser(emailAddress, password) async {
+  Future<User?> createUser(emailAddress, password) async {
     try {
-      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      return (await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailAddress,
         password: password,
-      );
+      ))
+          .user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        Get.snackbar("weak-password", "The password provided is too weak.");
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        Get.snackbar("email-already-in-use", "The account already exists for that email.");
       }
     } catch (e) {
       print(e);
     }
   }
 
-  loginUser(emailAddress, password) async {
-    final userCredential =
-        await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailAddress, password: password);
-    final user = userCredential.user;
+  Future<User?> loginUser(emailAddress, password) async {
+    try {
+      final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailAddress, password: password);
+      return userCredential.user;
+    } catch (e) {}
+    return null;
   }
 
   userNullCheck() {
     if (FirebaseAuth.instance.currentUser != null) {
-      Get.toNamed(Routes.HOME);
+      Get.toNamed(Routes.BLOGADD);
     } else {
-      Get.toNamed(Routes.LOGIN);
+      Get.toNamed(Routes.HOME);
     }
   }
 }
