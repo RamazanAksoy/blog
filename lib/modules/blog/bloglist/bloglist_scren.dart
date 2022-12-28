@@ -9,7 +9,11 @@ class BlogListScreen extends GetWidget<BlogListController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: buildAppBar(context), body:Obx(() => controller.listBlog.last.comment==null? CircularProgressIndicator():buildPage(context)));
+    return Scaffold(
+        appBar: buildAppBar(context),
+        body: Obx(() => controller.listBlog.last.comment == null
+            ? const Center(child: CircularProgressIndicator())
+            : buildPage(context)));
   }
 
   AppBar buildAppBar(BuildContext context) {
@@ -17,7 +21,7 @@ class BlogListScreen extends GetWidget<BlogListController> {
       title: const Text(
         "Blog List",
         textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.black87,fontSize: 18),
+        style: TextStyle(color: Colors.black87, fontSize: 18),
       ),
       centerTitle: true,
       elevation: 0,
@@ -50,7 +54,7 @@ class BlogListScreen extends GetWidget<BlogListController> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: FadeAnimation((index*0.3 + 0.2), buildListCard(index)),
+                    child: FadeAnimation((index * 0.3 + 0.2), buildListCard(index)),
                   );
                 },
               )
@@ -62,13 +66,13 @@ class BlogListScreen extends GetWidget<BlogListController> {
   }
 
   Card buildListCard(int index) {
-    return  Card(
+    return Card(
       elevation: 0.5,
       child: ListTile(
-        leading: Icon(Icons.textsms_outlined),
+        leading: const Icon(Icons.textsms_outlined),
         title: Text('${controller.listBlog[index].title}'),
         subtitle: Text('${controller.listBlog[index].comment}'),
-        trailing: Icon(Icons.arrow_right),
+        trailing: const Icon(Icons.arrow_right),
       ),
     );
   }

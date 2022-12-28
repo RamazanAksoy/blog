@@ -2,7 +2,7 @@ import 'package:blog/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../animation/fadeanimation.dart';
+import '../../animation/fadeanimation.dart';
 
 
 class BlogScreen extends StatelessWidget {
