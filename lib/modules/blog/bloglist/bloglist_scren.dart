@@ -9,7 +9,7 @@ class BlogListScreen extends GetWidget<BlogListController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: buildAppBar(context), body: buildPage(context));
+    return Scaffold(appBar: buildAppBar(context), body:Obx(() => controller.listBlog.last.comment==null? CircularProgressIndicator():buildPage(context)));
   }
 
   AppBar buildAppBar(BuildContext context) {
@@ -45,12 +45,12 @@ class BlogListScreen extends GetWidget<BlogListController> {
             children: <Widget>[
               ListView.builder(
                 shrinkWrap: true,
-                itemCount: 10,
+                itemCount: controller.listBlog.length,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: FadeAnimation((index*0.3 + 0.2), buildListCard()),
+                    child: FadeAnimation((index*0.3 + 0.2), buildListCard(index)),
                   );
                 },
               )
@@ -61,13 +61,13 @@ class BlogListScreen extends GetWidget<BlogListController> {
     );
   }
 
-  Card buildListCard() {
-    return const Card(
+  Card buildListCard(int index) {
+    return  Card(
       elevation: 0.5,
       child: ListTile(
         leading: Icon(Icons.textsms_outlined),
-        title: Text("Title"),
-        subtitle: Text("Subtitle"),
+        title: Text('${controller.listBlog[index].title}'),
+        subtitle: Text('${controller.listBlog[index].comment}'),
         trailing: Icon(Icons.arrow_right),
       ),
     );

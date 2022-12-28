@@ -18,14 +18,13 @@ class FireStoreService extends GetxService {
     }
   }
 
-  getBlogFireStore() {
-    final docRef = db!.collection("blogs");
-    docRef.get().then((value)  {
-      value.docs.forEach((element) { 
-    Blog blog=    Blog.fromJson(element.data());
-       print(  Blog(id: element.id,comment: blog.comment,title: blog.title) );
-      });
-    } );
-    
+  Future<List<Blog>?> getBlogFireStore() async {
+    List<Blog> bloglist = [];
+    QuerySnapshot<Map<String, dynamic>> a = await db!.collection("blogs").get();
+    a.docs.forEach((element) {
+      Blog blog = Blog.fromJson(element.data());
+      bloglist.add(Blog(id: element.id, comment: blog.comment, title: blog.title));
+    });
+    return bloglist;
   }
 }
