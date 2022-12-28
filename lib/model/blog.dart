@@ -4,7 +4,7 @@ class Blog {
   String? comment;
 
   Blog({this.id,this.title, this.comment});
-
+  Blog.init();
   @override
   String toString() {
     return 'Blog{id: $id,title: $title, comment: $comment}';
