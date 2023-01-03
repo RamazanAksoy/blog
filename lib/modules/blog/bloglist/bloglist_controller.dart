@@ -7,6 +7,7 @@ class BlogListController extends GetxController {
   var listBlog = [Blog.init()].obs;
 
   getBlogList() async {
+    listBlog = [Blog.init()].obs;
     listBlog.value =(await fireStoreService.getBlogFireStore())!;
     print(listBlog);
   }

@@ -11,8 +11,8 @@ class AnalyticsService extends GetxService {
   logEvent() async {
     await FirebaseAnalytics.instance.logEvent(
     name: "select_content",
-    parameters: {
-        "content_type": "image",
+    parameters: { 
+        "content_type": "ramo",
     },
 );
   }
