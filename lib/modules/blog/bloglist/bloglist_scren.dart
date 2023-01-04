@@ -19,7 +19,7 @@ class BlogListScreen extends GetWidget<BlogListController> {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       title: const Text(
-        "Blog List",
+        "Blog Listss",
         textAlign: TextAlign.center,
         style: TextStyle(color: Colors.black87, fontSize: 18),
       ),
